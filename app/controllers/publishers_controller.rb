@@ -38,7 +38,7 @@ class PublishersController < ApplicationController
 
   private
     def set_publisher
-      @publisher = Publisher.find(params[:id])
+        @publisher = Publisher.where(id: params[:id]).first
     end
 
     def publisher_params

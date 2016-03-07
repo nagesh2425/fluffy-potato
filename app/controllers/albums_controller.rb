@@ -38,7 +38,7 @@ class AlbumsController < ApplicationController
 
   private
     def set_album
-      @album = Album.find(params[:id])
+      @album = Album.includes(:songs).where(id: params[:id]).first
     end
 
     def album_params
