@@ -21,7 +21,7 @@ class ArtistsControllerTest < ActionController::TestCase
       post :create, artist: { name: @artist.name }
     end
 
-    assert_redirected_to artists_path
+    assert_redirected_to artist_path(assigns(:artist))
   end
 
   test "should show artist" do

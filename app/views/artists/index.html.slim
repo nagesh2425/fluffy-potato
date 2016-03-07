@@ -4,12 +4,12 @@
       = link_to "New", new_artist_path, class: 'btn btn-primary'
     | Artists
   
-.row
-  .col-xs-6.col-sm-4 Name
-  .col-xs-6.col-sm-4 Profile Image
+table.table.table-striped
+  thead
+    tr
+      th name
+  tbody
+    - @artists.each do |artist|
+      tr
+        td= link_to artist.name, artist
 
-
-- @artists.each do |artist|
-  .row
-    .col-xs-6.col-sm-4= artist.name
-    .col-xs-6.col-sm-4= link_to image_tag(artist.image_url.blank? ? "images.png" : artist.image_url), artist
