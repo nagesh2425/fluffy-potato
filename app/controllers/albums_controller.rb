@@ -1,6 +1,7 @@
 class AlbumsController < ApplicationController
   before_action :set_album, only: [:show, :edit, :update, :destroy]
-
+  before_action :find_publishers, only: [:edit, :update, :create, :new]
+  
   respond_to :html
 
   def index
@@ -44,4 +45,10 @@ class AlbumsController < ApplicationController
     def album_params
       params.require(:album).permit(:name, :cover_art, :publisher_id, :released_on)
     end
+    
+    #method to find the publishers
+    def find_publishers
+        @publishers = Publisher.pluck(:id, :name)
+    end
+    
 end
