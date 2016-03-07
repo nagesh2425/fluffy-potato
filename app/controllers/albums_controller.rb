@@ -6,7 +6,12 @@ class AlbumsController < ApplicationController
 
   def index
     @albums = Album.all
-    respond_with(@albums)
+    #respond_with(@albums)
+    #to respond api call to get data in json format
+    respond_to do |format|
+        format.html {render action: 'index'}
+        format.json {render json: @albums}
+    end
   end
 
   def show

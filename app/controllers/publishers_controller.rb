@@ -5,7 +5,12 @@ class PublishersController < ApplicationController
 
   def index
     @publishers = Publisher.all
-    respond_with(@publishers)
+    #respond_with(@publishers)
+    #to respond api call to get data in json format
+    respond_to do |format|
+        format.html {render action: 'index'}
+        format.json {render json: @publishers}
+    end
   end
 
   def show

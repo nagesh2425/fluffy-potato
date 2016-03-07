@@ -5,7 +5,12 @@ class ArtistsController < ApplicationController
 
   def index
     @artists = Artist.all
-    respond_with(@artists)
+    #respond_with(@artists)
+    #to respond api call to get data in json format
+    respond_to do |format|
+        format.html {render action: 'index'}
+        format.json {render json: @artists}
+    end
   end
 
   def show
