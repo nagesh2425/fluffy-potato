@@ -28,6 +28,7 @@ html lang="en"
             li= link_to "Publishers", publishers_path
             li= link_to "Albums", albums_path
             li= link_to "Artists", artists_path
+            li= link_to "Latest Song", ''
 
     .container
       .row
@@ -48,7 +49,10 @@ html lang="en"
           .col-md-2
             ul
               li LATEST
-              li ~
+              - cache do
+                - @latest_songs.each do |song|
+                  li= link_to song.name, "/"
+
           .col-md-2
             ul
               li OUR TEAM
