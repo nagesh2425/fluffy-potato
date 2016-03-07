@@ -12,8 +12,13 @@ class ArtistsController < ApplicationController
         format.json {render json: @artists}
     end
   end
-
+  
+  #if profile image is blank, this method will get the image and save the image url in db
   def show
+    if @artist.image_url.blank?
+      image_url = update_image(@artist)
+      @artist.update_attribute(:image_url, image_url.gsub("\"","").strip)
+    end
     respond_with(@artist)
   end
 
@@ -28,7 +33,7 @@ class ArtistsController < ApplicationController
   def create
     @artist = Artist.new(artist_params)
     @artist.save
-    respond_with(@artist)
+    redirect_to artists_path
   end
 
   def update
@@ -41,6 +46,16 @@ class ArtistsController < ApplicationController
     respond_with(@artist)
   end
 
+  #method to get the image url from randomuser website
+  def update_image(artist)
+    uri = URI("https://randomuser.me/api/")
+    Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.scheme == 'https') do |http|
+        request = Net::HTTP::Get.new uri
+        response = http.request request # Net::HTTPResponse object
+        return JSON.parse(response.body)["results"][0]["user"]["picture"]["thumbnail"].inspect
+    end
+  end
+  
   private
     def set_artist
       @artist = Artist.includes(:albums).where(id: params[:id]).first
