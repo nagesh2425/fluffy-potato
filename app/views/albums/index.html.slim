@@ -12,7 +12,8 @@ table.table.table-striped
       th released
   tbody
     - @albums.each do |album|
-      tr
+      tr id="album_#{album.id}"
         td= link_to album.name, album
         td= album.publisher.name
         td= album.released_on
+        td= link_to "Delete", album_path(album), method: :delete, remote: true, class: 'btn btn-primary'

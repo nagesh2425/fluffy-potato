@@ -34,7 +34,10 @@ class AlbumsController < ApplicationController
 
   def destroy
     @album.destroy
-    respond_with(@album)
+    #respond_with(@album)
+    respond_to do |format|
+        format.js
+    end
   end
 
   private
